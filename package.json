@@ -1,0 +1,44 @@
+{
+  "name": "base-cwd",
+  "description": "Base plugin that adds a getter/setter for the current working directory.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/jonschlinkert/base-cwd",
+  "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
+  "repository": "jonschlinkert/base-cwd",
+  "bugs": {
+    "url": "https://github.com/jonschlinkert/base-cwd/issues"
+  },
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ],
+  "main": "index.js",
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "base": "^0.6.4",
+    "mocha": "^2.3.4"
+  },
+  "keywords": [],
+  "verb": {
+    "toc": false,
+    "layout": "default",
+    "plugins": [
+      "gulp-format-md"
+    ],
+    "related": {
+      "list": [
+        "base",
+        "base-options",
+        "base-pipeline",
+        "base-plugins",
+        "base-tasks"
+      ]
+    }
+  }
+}
