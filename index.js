@@ -18,7 +18,13 @@ module.exports = function() {
         this.cache.cwd = path.resolve(cwd);
       },
       get: function() {
-        return path.resolve(this.cache.cwd || this.options.cwd || process.cwd());
+        if (typeof this.cache.cwd === 'string') {
+          return path.resolve(this.cache.cwd);
+        }
+        if (typeof this.options.cwd === 'string') {
+          return path.resolve(this.options.cwd);
+        }
+        return process.cwd();
       }
     });
   }
