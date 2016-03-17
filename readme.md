@@ -1,4 +1,4 @@
-# base-cwd [![NPM version](https://img.shields.io/npm/v/base-cwd.svg)](https://www.npmjs.com/package/base-cwd) [![Build Status](https://img.shields.io/travis/jonschlinkert/base-cwd.svg)](https://travis-ci.org/jonschlinkert/base-cwd)
+# base-cwd [![NPM version](https://img.shields.io/npm/v/base-cwd.svg)](https://www.npmjs.com/package/base-cwd) [![Build Status](https://img.shields.io/travis/node-base/base-cwd.svg)](https://travis-ci.org/node-base/base-cwd)
 
 > Base plugin that adds a getter/setter for the current working directory.
 
@@ -84,7 +84,7 @@ $ npm install -d && npm test
 ## License
 
 Copyright © 2016 [Jon Schlinkert](https://github.com/jonschlinkert)
-Released under the [MIT license](https://github.com/jonschlinkert/base-cwd/blob/master/LICENSE).
+Released under the [MIT license](https://github.com/node-base/base-cwd/blob/master/LICENSE).
 
 ***
 
