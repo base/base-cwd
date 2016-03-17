@@ -9,8 +9,12 @@
 
 var path = require('path');
 
-module.exports = function() {
-  return function() {
+module.exports = function(fn) {
+  return function plugin() {
+    fn = fn || this.options.validatePlugin;
+    if (typeof fn === 'function' && !fn(this)) return;
+    if (this.isRegistered('base-cwd')) return;
+
     Object.defineProperty(this, 'cwd', {
       configurable: true,
       enumerable: true,
@@ -27,5 +31,7 @@ module.exports = function() {
         return process.cwd();
       }
     });
+
+    return plugin;
   }
 };

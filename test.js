@@ -5,11 +5,13 @@ var path = require('path');
 var assert = require('assert');
 var cwd = require('./');
 var Base = require('base');
+var option = require('base-option');
 var app;
 
 describe('base-cwd', function() {
   beforeEach(function() {
     app = new Base();
+    app.use(option());
     app.use(cwd());
   });
 
@@ -36,6 +38,40 @@ describe('base-cwd', function() {
   });
 
   it('should set app.cache.cwd when defined directly', function() {
+    app.cwd = 'foo/bar';
+    assert.equal(app.cache.cwd, app.cwd);
+  });
+
+  it('should validate the instance', function() {
+    app = new Base();
+    app.use(cwd(function(app) {
+      return app.isFoo;
+    }))
+    assert(!app.cwd);
+
+    app.isFoo = true;
+    app.use(cwd(function(app) {
+      return app.isFoo;
+    }))
+
+    app.cwd = 'foo/bar';
+    assert.equal(app.cache.cwd, app.cwd);
+  });
+
+  it('should validate the instance using app.options.validatePlugin', function() {
+    app = new Base();
+    app.use(option());
+
+    app.option('validatePlugin', function(app) {
+      return app.isFoo;
+    });
+
+    app.use(cwd())
+    assert(!app.cwd);
+
+    app.isFoo = true;
+    app.use(cwd())
+
     app.cwd = 'foo/bar';
     assert.equal(app.cache.cwd, app.cwd);
   });
