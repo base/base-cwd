@@ -11,9 +11,7 @@ var path = require('path');
 
 module.exports = function(fn) {
   return function plugin() {
-    fn = fn || this.options.validatePlugin;
-    if (typeof fn === 'function' && !fn(this)) return;
-    if (this.isRegistered('base-cwd')) return;
+    if (!isValidInstance(this, fn)) return;
 
     Object.defineProperty(this, 'cwd', {
       configurable: true,
@@ -35,3 +33,17 @@ module.exports = function(fn) {
     return plugin;
   }
 };
+
+function isValidInstance(app, fn) {
+  fn = fn || app.options.validatePlugin;
+  if (typeof fn === 'function' && !fn(app)) {
+    return false;
+  }
+  if (app.isRegistered('base-cwd')) {
+    return false;
+  }
+  if (app.isCollection || app.isView) {
+    return false;
+  }
+  return true;
+}
