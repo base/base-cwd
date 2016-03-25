@@ -43,10 +43,10 @@
     "related": {
       "list": [
         "base",
-        "base-options",
+        "base-option",
         "base-pipeline",
         "base-plugins",
-        "base-tasks"
+        "base-task"
       ]
     }
   }
