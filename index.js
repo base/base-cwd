@@ -12,7 +12,7 @@ var isRegistered = require('is-registered');
 
 module.exports = function(fn) {
   return function plugin() {
-    if (isValidInstance(this, fn)) return;
+    if (!isValidInstance(this, fn)) return;
 
     Object.defineProperty(this, 'cwd', {
       configurable: true,
@@ -37,10 +37,10 @@ module.exports = function(fn) {
 
 function isValidInstance(app, fn) {
   if (typeof fn === 'function') {
-    return !fn(app, 'base-cwd');
+    return fn(app, 'base-cwd');
   }
   if (app && typeof app === 'object' && (app.isCollection || app.isView)) {
-    return true;
+    return false;
   }
-  return isRegistered(app, 'base-cwd');
+  return !isRegistered(app, 'base-cwd');
 }
