@@ -10,30 +10,7 @@ var app;
 describe('base-cwd', function() {
   beforeEach(function() {
     app = new Base();
-  });
-
-  it('should validate the instance', function() {
-    app.use(cwd(function(app) {
-      return app.isFoo === true;
-    }));
-    assert(!app.cwd);
-
-    app.isFoo = true;
-    app.use(cwd(function(app) {
-      return app.isFoo === true;
-    }))
-    assert(app.cwd);
-
-    app.use(cwd(function(app) {
-      return app.isFoo === true;
-    }))
-    assert(app.cwd);
-  });
-});
-
-describe('base-cwd', function() {
-  beforeEach(function() {
-    app = new Base();
+    app.isApp = true;
     app.use(cwd());
   });
 

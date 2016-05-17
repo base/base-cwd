@@ -8,11 +8,12 @@
 'use strict';
 
 var path = require('path');
+var isValidInstance = require('is-valid-instance');
 var isRegistered = require('is-registered');
 
 module.exports = function(fn) {
   return function plugin() {
-    if (!isValidInstance(this, fn)) return;
+    if (!isValid(this)) return;
 
     Object.defineProperty(this, 'cwd', {
       configurable: true,
@@ -35,12 +36,12 @@ module.exports = function(fn) {
   }
 };
 
-function isValidInstance(app, fn) {
-  if (typeof fn === 'function') {
-    return fn(app, 'base-cwd');
-  }
-  if (app && typeof app === 'object' && (app.isCollection || app.isView)) {
+function isValid(app) {
+  if (!isValidInstance(app)) {
     return false;
   }
-  return !isRegistered(app, 'base-cwd');
+  if (isRegistered(app, 'base-cwd')) {
+    return false;
+  }
+  return true;
 }
