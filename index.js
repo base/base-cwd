@@ -35,6 +35,7 @@ module.exports = function(types) {
         if (pkgPath) {
           var dir = path.dirname(pkgPath);
           if (dir !== process.cwd()) {
+            cached = dir;
             app.emit('cwd', dir);
           }
           return dir;
