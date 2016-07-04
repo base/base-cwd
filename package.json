@@ -10,7 +10,9 @@
   },
   "license": "MIT",
   "files": [
-    "index.js"
+    "index.js",
+    "LICENSE",
+    "README.md"
   ],
   "main": "index.js",
   "engines": {
@@ -20,7 +22,8 @@
     "test": "mocha"
   },
   "dependencies": {
-    "is-valid-app": "^0.1.1"
+    "find-pkg": "^0.1.2",
+    "is-valid-app": "^0.2.0"
   },
   "devDependencies": {
     "base": "^0.11.0",
@@ -28,10 +31,20 @@
     "mocha": "^2.5.3"
   },
   "keywords": [
+    "api",
     "app",
+    "application",
     "base",
     "baseplugin",
-    "cwd"
+    "building-blocks",
+    "create",
+    "cwd",
+    "framework",
+    "plugin",
+    "plugins",
+    "tool",
+    "toolkit",
+    "tools"
   ],
   "verb": {
     "toc": false,
