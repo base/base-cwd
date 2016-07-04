@@ -40,4 +40,14 @@ describe('base-cwd', function() {
     app.cwd = 'foo/bar';
     assert.equal(app.cache.cwd, app.cwd);
   });
+
+  it('should emit cwd', function() {
+    var count = 0;
+    app.on('cwd', function() {
+      count++;
+    });
+    app.cwd = 'foo/bar';
+    assert.equal(app.cache.cwd, app.cwd);
+    assert.equal(count, 1);
+  });
 });
