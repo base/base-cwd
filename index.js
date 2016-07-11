@@ -8,13 +8,21 @@
 'use strict';
 
 var path = require('path');
+var empty = require('empty-dir');
 var isValid = require('is-valid-app');
 var find = require('find-pkg');
+var cached;
 
-module.exports = function(types) {
+module.exports = function(types, options) {
+  if (typeof types !== 'string' && !Array.isArray(types)) {
+    options = types;
+    types = undefined;
+  }
+
+  options = options || {};
+
   return function plugin(app) {
     if (!isValid(app, 'base-cwd', types)) return;
-    var cached;
 
     Object.defineProperty(this, 'cwd', {
       configurable: true,
@@ -31,16 +39,32 @@ module.exports = function(types) {
         if (typeof this.options.cwd === 'string') {
           return path.resolve(this.options.cwd);
         }
-        var pkgPath = find.sync(process.cwd());
+
+        var cwd = process.cwd();
+        if (options.findup === false) {
+          cached = cwd;
+          return cwd;
+        }
+
+        var isEmpty = empty.sync(cwd, function(fp) {
+          return !/\.DS_Store/.test(fp);
+        });
+
+        if (isEmpty) {
+          cached = cwd;
+          return cwd;
+        }
+
+        var pkgPath = find.sync(cwd);
         if (pkgPath) {
           var dir = path.dirname(pkgPath);
-          if (dir !== process.cwd()) {
+          if (dir !== cwd) {
             cached = dir;
             app.emit('cwd', dir);
           }
           return dir;
         }
-        return process.cwd();
+        return cwd;
       }
     });
 
