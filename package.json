@@ -1,7 +1,7 @@
 {
   "name": "base-cwd",
   "description": "Base plugin that adds a getter/setter for the current working directory.",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "homepage": "https://github.com/node-base/base-cwd",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "repository": "node-base/base-cwd",
