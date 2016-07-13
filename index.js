@@ -28,16 +28,15 @@ module.exports = function(types, options) {
       configurable: true,
       enumerable: true,
       set: function(cwd) {
-        cached = path.resolve(cwd);
-        this.cache.cwd = cached;
+        cached = app.cache.cwd = path.resolve(cwd);
         app.emit('cwd', cached);
       },
       get: function() {
         if (typeof cached === 'string') {
           return path.resolve(cached);
         }
-        if (typeof this.options.cwd === 'string') {
-          return path.resolve(this.options.cwd);
+        if (typeof app.options.cwd === 'string') {
+          return (cached = path.resolve(app.options.cwd));
         }
 
         var cwd = process.cwd();
@@ -59,8 +58,7 @@ module.exports = function(types, options) {
         if (pkgPath) {
           var dir = path.dirname(pkgPath);
           if (dir !== cwd) {
-            cached = dir;
-            app.emit('cwd', dir);
+            cached = app.cache.cwd = dir;
           }
           return dir;
         }
