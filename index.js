@@ -11,7 +11,6 @@ var path = require('path');
 var empty = require('empty-dir');
 var isValid = require('is-valid-app');
 var find = require('find-pkg');
-var cached;
 
 module.exports = function(types, options) {
   if (typeof types !== 'string' && !Array.isArray(types)) {
@@ -20,16 +19,22 @@ module.exports = function(types, options) {
   }
 
   options = options || {};
+  var cached;
 
   return function plugin(app) {
     if (!isValid(app, 'base-cwd', types)) return;
+
+    var cwds = [app.cwd || process.cwd()];
 
     Object.defineProperty(this, 'cwd', {
       configurable: true,
       enumerable: true,
       set: function(cwd) {
         cached = app.cache.cwd = path.resolve(cwd);
-        app.emit('cwd', cached);
+        if (cwds[cwds.length - 1] !== cached) {
+          cwds.push(cached);
+          app.emit('cwd', cached);
+        }
       },
       get: function() {
         if (typeof cached === 'string') {
